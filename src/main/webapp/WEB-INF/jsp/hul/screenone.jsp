@@ -8,6 +8,8 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
 <style type="text/css">
 .header{
   position: fixed; /* fix the header to the top of the page */
@@ -66,7 +68,7 @@
 			</div>
 			<div class="excel-body">
 				<div>
-					<table style="width: 100%">
+					<table style="width: 100%" id="myTable">
 						<thead>
 							<tr style="background-color: lightgrey; text-align: center;">
 								<th>SAP Code</th>
@@ -76,7 +78,7 @@
 								<th>Target Qty(Pcs)</th>
 							</tr>
 						</thead>
-						<tbody>
+						<tbody id="tableData">
 							<!-- Add table data here -->
 						</tbody>
 					</table>
@@ -90,6 +92,7 @@
 		</div>
 	</div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript">
 
 function bindData(data) {
@@ -120,7 +123,7 @@ function bindData(data) {
 		}
 	}
 	
-	 $(document).ready(function() {
+	/*  $(document).ready(function() {
 	        $("#uploadButton").click(function() {
 	            var formData = new FormData();
 	            formData.append("excelFile", $("#excelFile")[0].files[0]);
@@ -133,7 +136,7 @@ function bindData(data) {
 	                contentType: false,
 	                success: function(excelDataList) {
 	                    console.log(excelDataList)
-	                    var table = $("<table>").addClass("excel-data-table");
+	                    var table = $("<table>").addClass("excel-data-table"); */
 	                 /*    var headerRow = $("<tr>");
 	                    headerRow.append("<th>SAP Code</th>");
 	                    headerRow.append("<th>SKU Code</th>");
@@ -141,7 +144,7 @@ function bindData(data) {
 	                    headerRow.append("<th>Target Qty(Ctn)</th>");
 	                    headerRow.append("<th>Target Qty(Pcs)</th>");
 	                    table.append(headerRow); */
-	                    excelDataList.forEach(function(data) {
+	                    /* excelDataList.forEach(function(data) {
 	                        var row = $("<tr>");
 	                        row.append("<td>" + data.sapCode + "</td>");
 	                        row.append("<td>" + data.skuCode + "</td>");
@@ -154,8 +157,39 @@ function bindData(data) {
 	                }
 	            });
 	        });
-	    });
+	    }); */
 	
+	 
+	 
+	 
+	 
+	 $(document).ready(function() {
+	        $("#uploadButton").click(function() {
+	            var formData = new FormData();
+	            formData.append("excelFile", $("#excelFile")[0].files[0]);
+	            $.ajax({
+	                url: "/SpringMVC4withHibernateCRUD/customer/uploadExcel",
+	                type: "POST",
+	                data: formData,
+	                processData: false,
+	                contentType: false,
+	                success: function(data) {
+			            var html = "";
+			            for (var i = 0; i < data.length; i++) {
+			                html += "<tr>" +
+			                "<td>" + data[i].sapCode + "</td>" +
+		                    "<td>" + data[i].skuCode + "</td>" +
+		                    "<td>" + data[i].skuName + "</td>" +
+		                    "<td>" + data[i].targetQtyCtn + "</td>" +
+		                    "<td>" + data[i].targetQtyPcs + "</td>" +
+			                "</tr>";
+			            }
+			            $("#tableData").html(html);
+			            $('#myTable').DataTable();
+			        }
+	            });
+	        });
+	    });
 </script>
 </body>
 </html>
