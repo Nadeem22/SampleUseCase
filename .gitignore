@@ -1,0 +1,46 @@
+# IntelliJ files
+*.iml
+*.iws
+*.ipr
+
+# Eclipse files
+.classpath
+.project
+.settings/
+
+# Maven files
+target/
+
+# Spring Boot files
+bin/
+
+# Gradle files
+.gradle/
+build/
+
+# IDEA files
+.idea/
+
+# Tomcat files
+logs/
+work/
+temp/
+conf/Catalina/
+
+# Intellij files
+.idea
+
+# logs
+logs/*
+
+# Database files
+*.mv.db
+*.trace.db
+
+# Security files
+src/main/resources/application.properties
+
+# Other files
+*.log
+*.swp
+*.swo
