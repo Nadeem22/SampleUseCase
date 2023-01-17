@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement
-@ComponentScan({ "com.jackrutorial.config" })
+@ComponentScan({ "com.nadeem.config" })
 @PropertySource(value = { "classpath:config.properties" })
 public class HibernateConfig {
  
